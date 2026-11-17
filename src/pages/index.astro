@@ -1,84 +1,31 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
-import PostPreview from "@/components/blog/PostPreview.astro";
-import Note from "@/components/note/Note.astro";
-import SocialList from "@/components/SocialList.astro";
-import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
-import { collectionDateSort } from "@/utils/date";
-
-// Posts
-const MAX_POSTS = 10;
-const allPosts = await getAllPosts();
-const allPostsByDate = allPosts.sort(collectionDateSort) as CollectionEntry<"post">[];
-const latestPosts = allPostsByDate.slice(0, MAX_POSTS);
-
-// Pinned Posts, set to a max of 3;
-const MAX_PINNED_POSTS = 3;
-const pinnedPosts = allPostsByDate
-	.values()
-	.filter((p) => p.data.pinned)
-	.take(MAX_PINNED_POSTS)
-	.toArray();
-
-// Notes, set to a max of 5
-const MAX_NOTES = 5;
-const allNotes = await getCollection("note");
-const latestNotes = allNotes
-	.sort(collectionDateSort)
-	.slice(0, MAX_NOTES) as CollectionEntry<"note">[];
+import SocialList from "@/components/SocialList.astro";
 ---
-
 <PageLayout meta={{ title: "Home" }}>
-	<section>
-		<h1 class="title mb-12">Hello World!</h1>
-		<p class="mb-4">
-			Hi, I’m a theme for Astro, a simple starter that you can use to create your website or blog.
-			If you want to know more about how you can customise me, add more posts, and make it your own,
-			click on the GitHub icon link below and it will take you to my repo.
-		</p>
-		<SocialList />
-	</section>
-	{
-		pinnedPosts.length > 0 && (
-			<section class="mt-16">
-				<h2 class="title mb-6 text-xl">Pinned Posts</h2>
-				<ul class="space-y-4" role="list">
-					{pinnedPosts.map((p) => (
-						<li class="grid gap-1 sm:grid-cols-[auto_1fr]">
-							<PostPreview post={p} />
-						</li>
-					))}
-				</ul>
-			</section>
-		)
-	}
-	<section class="mt-16">
-		<h2 class="title text-accent mb-6 text-xl"><a href="/posts/">Posts</a></h2>
-		<ul class="space-y-4" role="list">
-			{
-				latestPosts.map((p) => (
-					<li class="grid gap-1 sm:grid-cols-[auto_1fr]">
-						<PostPreview post={p} />
-					</li>
-				))
-			}
-		</ul>
-	</section>
-	{
-		latestNotes.length > 0 && (
-			<section class="mt-16">
-				<h2 class="title text-accent mb-6 text-xl">
-					<a href="/notes/">Notes</a>
-				</h2>
-				<ul class="space-y-6" role="list">
-					{latestNotes.map((note) => (
-						<li>
-							<Note note={note} as="h3" isPreview />
-						</li>
-					))}
-				</ul>
-			</section>
-		)
-	}
+  <section data-pagefind-body>
+    <p class="text-accent mb-4">Computer Science / University of South Florida</p>
+    <h1 class="title mb-6">Hi, I'm Asim.</h1>
+    <p class="mb-4 leading-relaxed">I'm a Computer Science undergraduate at USF, graduating in December 2027. I'm building my software development skills through coursework, personal projects, and The Odin Project.</p>
+    <SocialList />
+  </section>
+  <section class="mt-14" aria-labelledby="projects-title">
+    <h2 id="projects-title" class="title mb-6 text-xl">What I'm working on</h2>
+    <div class="rounded-lg border border-current/20 p-6">
+      <p class="text-accent mb-3 text-xs">PERSONAL PROJECT · IN DEVELOPMENT</p>
+      <h3 class="title mb-3 text-lg">WeightLoss</h3>
+      <p class="mb-4 leading-relaxed">A weight and nutrition project that I'm developing toward a full-stack tracker. The existing repository contains a Flask calculator; saved meal logs, weigh-ins, and progress charts are planned next.</p>
+      <a class="cactus-link" href="https://github.com/Capel1ini/WeightLoss">View repository →</a>
+    </div>
+    <p class="mt-5"><a class="cactus-link" href="/projects/">More projects and coursework →</a></p>
+  </section>
+  <section class="mt-14" aria-labelledby="background-title">
+    <h2 id="background-title" class="title mb-5 text-xl">Background</h2>
+    <p class="mb-4 leading-relaxed">My studies include data structures, algorithms, computer architecture, and artificial intelligence. I've worked with Python, C++, SQL, and Arduino, and previously completed an IT internship at Indesore Trading.</p>
+    <a class="cactus-link" href="/about/">More about me →</a>
+  </section>
+  <section class="mt-14" aria-labelledby="contact-title">
+    <h2 id="contact-title" class="title mb-5 text-xl">Get in touch</h2>
+    <a class="cactus-link" href="mailto:asimhossain@usf.edu">asimhossain@usf.edu</a>
+  </section>
 </PageLayout>

@@ -1,0 +1,22 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+const projects = [
+  {title: "WeightLoss", label: "Personal project · In development", text: "A Flask-based weight and calorie calculator that I'm developing toward a full-stack tracking application. The next planned features are persistent meal entries, weight history, and a progress dashboard. These tracking features are not yet presented as complete.", skills: "Python / Flask / HTML / CSS", url: "https://github.com/Capel1ini/WeightLoss"},
+  {title: "Gary the Snail", label: "Course project · Foundations of Engineering Lab · Fall 2024", text: "Built and programmed an Arduino UNO line-following robot using sensor feedback and motor control logic. Calibrated sensor thresholds for curved tracks, developed circuit schematics, and presented the project for the final lab assessment.", skills: "Arduino / Sensors / Motor control", url: null},
+  {title: "Logic circuit design", label: "Coursework · Computer Logic & Design Lab", text: "Built combinational logic circuits on breadboards using OR, NAND, and XOR gates. Translated schematic diagrams into physical pin connections and troubleshot circuit wiring.", skills: "Digital logic / Circuit schematics / Breadboarding", url: null},
+  {title: "Odin Recipes", label: "Learning exercise · The Odin Project", text: "An introductory HTML project for practicing page structure, links, and recipe pages. Part of my ongoing web development study.", skills: "HTML", url: "https://github.com/Capel1ini/odin-recipes"},
+];
+---
+<PageLayout meta={{title: "Projects", description: "Personal projects and engineering coursework by Asim Khan."}}>
+  <h1 class="title mb-6">Projects</h1>
+  <p class="mb-10 leading-relaxed">A selection of what I'm building and what I've worked on in class. Each entry identifies its scope and current stage.</p>
+  <div class="space-y-8" data-pagefind-body>
+    {projects.map(project => <article class="rounded-lg border border-current/20 p-6">
+      <p class="text-accent mb-3 text-xs">{project.label}</p>
+      <h2 class="title mb-4 text-xl">{project.title}</h2>
+      <p class="mb-4 leading-relaxed">{project.text}</p>
+      <p class="text-muted text-xs">{project.skills}</p>
+      {project.url && <p class="mt-5"><a class="cactus-link" href={project.url}>View repository →</a></p>}
+    </article>)}
+  </div>
+</PageLayout>
